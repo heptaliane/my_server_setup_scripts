@@ -1,6 +1,6 @@
 ---
 - name: Install official apt packages
-  host: all
+  hosts: all
   tasks:
     - name: Install apt packages
       become: true
