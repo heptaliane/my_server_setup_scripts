@@ -1,0 +1,9 @@
+---
+- name: Install official apt packages
+  host: all
+  tasks:
+    - name: Install apt packages
+      become: true
+      apt:
+        name: "{{ apt_packages }}"
+        state: present
