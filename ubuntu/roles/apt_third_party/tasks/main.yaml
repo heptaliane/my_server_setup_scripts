@@ -38,8 +38,9 @@
 
 - name: Add apt repository
   become: true
-  repo: "deb [arch={{ machine_arch }} signed-by={{ keyring_path }}] {{ repo_url }} {{ os_suites }} {{ component }}"
-  state: present
+  apt_repository:
+    repo: "deb [arch={{ machine_arch }} signed-by={{ keyring_path }}] {{ repo_url }} {{ os_suites }} {{ component }}"
+    state: present
 
 - name: Install apt packages
   become: true
