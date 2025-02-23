@@ -7,3 +7,17 @@
       apt:
         name: "{{ apt_packages }}"
         state: present
+
+- name: Install third party apt packages
+  hosts: all
+  tasks:
+    - name: "Install third party apt packages"
+      include_role:
+        name: apt_third_party
+      vars:
+        repo_name: "{{ item.repo_name }}"
+        gpg_key_url: "{{ item.gpg_key_url }}"
+        repo_url: "{{ item.repo_url }}"
+        component: "{{ item.component }}"
+        packages: "{{ item.packages }}"
+      loop: "{{ third_party_apt_packages }}"

@@ -1,2 +1,16 @@
 apt_packages:
   - build-essential
+  - ca-certificates
+  - curl
+
+third_party_apt_packages:
+  - repo_name: docker
+    gpg_key_url: https://download.docker.com/linux/ubuntu/gpg
+    repo_url: https://download.docker.com/linux/ubuntu
+    component: stable
+    packages:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
