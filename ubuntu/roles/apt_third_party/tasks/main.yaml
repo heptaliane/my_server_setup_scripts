@@ -1,0 +1,48 @@
+---
+- name: Create apt keyring container
+  become: true
+  file:
+    path: "{{ keyring_base_path }}"
+    state: directory
+    mode: '0755'
+
+- name: Define variables
+  changed_when: false
+  set_fact:
+    keyring_path: "{{ keyring_base_path }}/{{ repo_name }}.asc"
+
+- name: Check GPG key exists
+  changed_when: false
+  stat:
+    path: "{{ keyring_path }}"
+  register: keyring_stat
+
+- name: Fetch GPG key
+  become: true
+  when: not keyring_stat.stat.exists
+  get_url:
+    url: "{{ gpg_key_url }}"
+    dest: "{{ keyring_path }}"
+
+- name: Check architecture
+  changed_when: false
+  shell:
+    cmd: dpkg --print-architecture
+  register: machine_arch
+
+- name: Check suites
+  changed_when: false
+  shell:
+    cmd: . /etc/os-release && echo ${UBUNTU_CODENAME:-$VERSION_CODENAME}
+  register: os_suites
+
+- name: Add apt repository
+  become: true
+  repo: "deb [arch={{ machine_arch }} signed-by={{ keyring_path }}] {{ repo_url }} {{ os_suites }} {{ component }}"
+  state: present
+
+- name: Install apt packages
+  become: true
+  apt:
+    name: "{{ packages }}"
+    state: present
