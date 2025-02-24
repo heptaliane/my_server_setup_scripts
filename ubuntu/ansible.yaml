@@ -34,3 +34,14 @@
         build_command: "{{ item.build_command }}"
         revision: "{{ item.revision }}"
       loop: "{{ git_packages }}"
+
+- name: Script based installation
+  hosts: all
+  tasks:
+    - name: Install script based installation
+      include_role:
+        name: general_package
+      vars:
+        bin_name: "{{ item.bin_name }}"
+        install_command: "{{ item.install_command }}"
+      loop: "{{ general_packages }}"

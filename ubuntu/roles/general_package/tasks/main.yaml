@@ -1,0 +1,13 @@
+---
+- name: "Check if {{ bin_name }} exists"
+  changed_when: false
+  failed_when: false
+  shell:
+    cmd: "which {{ bin_name }}"
+  register: bin_path
+
+- name: Run install command
+  become: true
+  when: bin_path.failed
+  shell:
+    cmd: "{{ install_command }}"
