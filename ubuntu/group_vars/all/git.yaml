@@ -3,7 +3,7 @@ git_packages:
     repo_url: https://github.com/vim/vim.git
     revision: v9.1.1137
     build_command: make && make install
-  - repo_name: neovim
+  - repo_name: nvim
     repo_url: https://github.com/neovim/neovim.git
     revision: v0.10.4
     build_command: make CMAKE_BUILD_TYPE=Release && make install

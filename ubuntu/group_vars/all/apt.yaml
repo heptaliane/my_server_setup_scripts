@@ -2,9 +2,14 @@ apt_packages:
   - build-essential
   - ca-certificates
   - clang
+  - cmake
   - curl
+  - firefox
+  - gettext
   - libtool-bin
   - make
+  - ninja-build
+  - unzip
 
 third_party_apt_packages:
   - repo_name: docker
