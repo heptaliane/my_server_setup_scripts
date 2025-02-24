@@ -1,0 +1,17 @@
+---
+- name: Clone repository
+  become: true
+  git:
+    repo: "{{ repo_url }}"
+    dest: "{{ source_dir }}/{{ repo_name }}"
+    version: "{{ revision }}"
+
+- name: Check if package has been already installed
+  changed_when: false
+  shell: "which {{ repo_name }}"
+  register: repo_path
+
+- name: "Install {{ repo_name }}"
+  become: true
+  when: "{{ repo_path.stdout == '' }}"
+  shell: "{{ build_command }}"

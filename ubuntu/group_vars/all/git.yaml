@@ -1,0 +1,5 @@
+git_packages:
+  - repo_name: vim
+    repo_url: https://github.com/vim/vim.git
+    revision: v9.1.1137
+    build_command: make && make install

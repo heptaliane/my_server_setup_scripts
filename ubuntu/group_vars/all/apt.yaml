@@ -1,7 +1,10 @@
 apt_packages:
   - build-essential
   - ca-certificates
+  - clang
   - curl
+  - libtool-bin
+  - make
 
 third_party_apt_packages:
   - repo_name: docker

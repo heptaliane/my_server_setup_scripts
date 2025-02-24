@@ -21,3 +21,16 @@
         component: "{{ item.component }}"
         packages: "{{ item.packages }}"
       loop: "{{ third_party_apt_packages }}"
+
+- name: Install git based applications
+  hosts: all
+  tasks:
+    - name: Install git based applications
+      include_role:
+        name: git_package
+      vars:
+        repo_name: "{{ item.repo_name }}"
+        repo_url: "{{ item.repo_url }}"
+        build_command: "{{ item.build_command }}"
+        revision: "{{ item.revision }}"
+      loop: "{{ git_packages }}"
